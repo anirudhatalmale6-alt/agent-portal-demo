@@ -12,7 +12,7 @@
  .side a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:11px;font-size:15px;font-weight:500;
    color:rgba(246,241,231,.82);cursor:pointer;transition:.2s}
  .side a:hover{background:rgba(246,241,231,.08);color:#fff}
- .side a.on{background:var(--brass);color:#231c0e;font-weight:600}
+ .side a.on{background:var(--brass);color:#ffffff;font-weight:600}
  .side .ico{width:18px;text-align:center}
  .side .foot{position:absolute;bottom:22px;left:18px;right:18px;font-size:13px}
  .side .foot a{padding:10px 14px;background:rgba(0,0,0,.2)}
@@ -43,7 +43,7 @@
  .stat .n{font-family:'Fraunces';font-size:30px;color:var(--pine)}.stat .l{color:var(--muted);font-size:14px}
  .vid{background:var(--white);border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.25s}
  .vid:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
- .vid .thumb{aspect-ratio:16/9;position:relative;background:#0d2a21;cursor:pointer}
+ .vid .thumb{aspect-ratio:16/9;position:relative;background:#1b1e23;cursor:pointer}
  .vid .thumb img{width:100%;height:100%;object-fit:cover;opacity:.8}
  .vid .play{position:absolute;inset:0;display:grid;place-items:center}
  .vid .play span{width:56px;height:56px;border-radius:50%;background:rgba(255,253,248,.92);color:var(--pine);display:grid;place-items:center;font-size:20px;padding-left:4px}
@@ -66,7 +66,7 @@
 </style></head><body oncontextmenu="return false">
 <div class="shell">
   <aside class="side">
-    <a class="brand" href="../index.html"><span class="mark">GF</span> Global Force</a>
+    <a class="brand" href="../index.html"><span class="mark"></span><span class="brand-txt"><small>ROYAL LEPAGE</small>Global Force</span></a>
     <nav>
       <a class="on" data-v="home"><span class="ico">◉</span> Dashboard</a>
       <a data-v="forms"><span class="ico">▤</span> Forms</a>
@@ -80,12 +80,12 @@
     <div class="topbar">
       <div></div>
       <div class="who"><div class="av"><img src="../assets/img/a1.jpg" alt=""></div>
-        <div><div class="nm">Priya Sharma</div><div class="rl">Managing Broker</div></div></div>
+        <div><div class="nm">Raj Gill</div><div class="rl">Sales Representative</div></div></div>
     </div>
 
     <!-- HOME -->
     <section class="view on" id="home">
-      <h1 class="page">Welcome back, Priya.</h1>
+      <h1 class="page">Welcome back, Raj.</h1>
       <p class="lead">Everything you need to serve clients and grow your business.</p>
       <div class="stat">
         <div class="c"><div class="n">18</div><div class="l">Forms available</div></div>
@@ -95,9 +95,9 @@
       <div class="lib">
         <div class="doc"><div class="ic" style="background:#1c6b46">▤</div><h3>Listing Agreement 2026</h3><div class="meta">Fillable form · updated Jul 2026</div>
           <div class="act"><span class="pill dl">Downloadable</span><button class="mini dark" onclick="go('forms')">Open</button></div></div>
-        <div class="doc"><div class="ic" style="background:#b98a3e">◈</div><h3>New Agent Onboarding</h3><div class="meta">Training guide · read-only</div>
+        <div class="doc"><div class="ic" style="background:#e00034">◈</div><h3>New Agent Onboarding</h3><div class="meta">Training guide · read-only</div>
           <div class="act"><span class="pill view">View only</span><button class="mini out" onclick="viewDoc('New Agent Onboarding')">View</button></div></div>
-        <div class="doc"><div class="ic" style="background:#12362b">▶</div><h3>Winning Listing Presentations</h3><div class="meta">Video · 14 min</div>
+        <div class="doc"><div class="ic" style="background:#1b1e23">▶</div><h3>Winning Listing Presentations</h3><div class="meta">Video · 14 min</div>
           <div class="act"><span class="pill view">Stream only</span><button class="mini out" onclick="go('videos')">Watch</button></div></div>
       </div>
     </section>
@@ -138,7 +138,7 @@
       <p>3. Growing your book. Access the video library for training on prospecting, listing presentations, and negotiation. New material is added monthly.</p>
       <p style="color:var(--muted)">— Global Force Realty · Confidential · For agent use only —</p>
     </div>
-    <div class="sh-foot">🔒 Protected view — downloading, printing and copying are disabled · watermarked to Priya Sharma</div>
+    <div class="sh-foot">🔒 Protected view — downloading, printing and copying are disabled · watermarked to Raj Gill</div>
   </div>
 </div>
 
@@ -158,7 +158,7 @@
    '<div class="doc"><div class="ic" style="background:#1c6b46">▤</div><h3>'+f[0]+'</h3><div class="meta">'+f[1]+'</div>'+
    '<div class="act"><span class="pill dl">Downloadable</span><button class="mini dark" onclick="dl(\''+f[0]+'\')">Download</button></div></div>'));});
  train.forEach(function(t){document.getElementById('trainList').appendChild(el(
-   '<div class="doc"><div class="ic" style="background:#b98a3e">◈</div><h3>'+t[0]+'</h3><div class="meta">'+t[1]+'</div>'+
+   '<div class="doc"><div class="ic" style="background:#e00034">◈</div><h3>'+t[0]+'</h3><div class="meta">'+t[1]+'</div>'+
    '<div class="act"><span class="pill view">View only</span><button class="mini out" onclick="viewDoc(\''+t[0]+'\')">View</button></div></div>'));});
  vids.forEach(function(v,i){document.getElementById('vidList').appendChild(el(
    '<div class="vid"><div class="thumb" onclick="playVid(\''+v[0]+'\')"><img src="../assets/img/v'+i+'.jpg"><div class="lock">🔒 No download</div><div class="play"><span>▶</span></div></div>'+
@@ -168,7 +168,7 @@
    document.querySelectorAll('.view').forEach(function(s){s.classList.toggle('on',s.id===v);});window.scrollTo(0,0);}
  document.querySelectorAll('.side a[data-v]').forEach(function(a){a.onclick=function(){go(a.dataset.v);};});
 
- var wm=document.getElementById('wm');for(var i=0;i<24;i++){var s=document.createElement('span');s.textContent='Priya Sharma · Global Force';wm.appendChild(s);}
+ var wm=document.getElementById('wm');for(var i=0;i<24;i++){var s=document.createElement('span');s.textContent='Raj Gill · Global Force';wm.appendChild(s);}
  function viewDoc(t){document.getElementById('vTitle').textContent=t;document.getElementById('vH').textContent=t;document.getElementById('viewer').classList.add('on');}
  function closeDoc(){document.getElementById('viewer').classList.remove('on');}
  function dl(t){alert('⬇ Downloading "'+t+'"\\n\\nForms are allowed to download and edit. (Demo)');}
