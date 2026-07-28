@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agent Portal — Global Force Realty</title>
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+ body{background:var(--cream-2)}
+ .shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+ .side{background:var(--pine);color:var(--cream);padding:24px 18px;position:sticky;top:0;height:100vh}
+ .side .brand{color:var(--cream);font-size:19px;margin-bottom:26px}
+ .side nav{display:grid;gap:5px}
+ .side a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:11px;font-size:15px;font-weight:500;
+   color:rgba(246,241,231,.82);cursor:pointer;transition:.2s}
+ .side a:hover{background:rgba(246,241,231,.08);color:#fff}
+ .side a.on{background:var(--brass);color:#231c0e;font-weight:600}
+ .side .ico{width:18px;text-align:center}
+ .side .foot{position:absolute;bottom:22px;left:18px;right:18px;font-size:13px}
+ .side .foot a{padding:10px 14px;background:rgba(0,0,0,.2)}
+ .main{padding:30px 40px 60px}
+ .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}
+ .topbar .who{display:flex;align-items:center;gap:12px}
+ .topbar .av{width:44px;height:44px;border-radius:50%;overflow:hidden;background:var(--cream)}
+ .topbar .nm{font-family:'Fraunces';font-size:18px;color:var(--pine);line-height:1.1}
+ .topbar .rl{font-size:12px;color:var(--brass);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
+ h1.page{font-family:'Fraunces';font-size:34px;color:var(--pine);margin:0 0 6px}
+ .lead{color:var(--muted);margin:0 0 26px}
+ .view{display:none}.view.on{display:block;animation:fade .3s}
+ @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+ .lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+ .doc{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:20px;transition:.25s;display:flex;flex-direction:column}
+ .doc:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+ .doc .ic{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-size:20px;margin-bottom:14px;color:#fff}
+ .doc h3{font-family:'Outfit';font-size:16px;font-weight:600;color:var(--ink);margin:0 0 4px}
+ .doc .meta{font-size:13px;color:var(--muted);margin-bottom:16px;flex:1}
+ .doc .act{display:flex;gap:8px;align-items:center}
+ .pill{font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;letter-spacing:.03em}
+ .pill.view{background:#fdeccb;color:#8a5a12}.pill.dl{background:#d8efe0;color:#1c6b46}
+ .mini{font-size:13px;font-weight:600;padding:9px 14px;border-radius:9px;cursor:pointer;border:0;font-family:'Outfit'}
+ .mini.dark{background:var(--pine);color:var(--cream)}.mini.dark:hover{background:var(--pine-2)}
+ .mini.out{background:transparent;border:1.5px solid var(--line);color:var(--pine)}.mini.out:hover{border-color:var(--brass)}
+ .stat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:30px}
+ .stat .c{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:20px}
+ .stat .n{font-family:'Fraunces';font-size:30px;color:var(--pine)}.stat .l{color:var(--muted);font-size:14px}
+ .vid{background:var(--white);border:1px solid var(--line);border-radius:15px;overflow:hidden;transition:.25s}
+ .vid:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+ .vid .thumb{aspect-ratio:16/9;position:relative;background:#0d2a21;cursor:pointer}
+ .vid .thumb img{width:100%;height:100%;object-fit:cover;opacity:.8}
+ .vid .play{position:absolute;inset:0;display:grid;place-items:center}
+ .vid .play span{width:56px;height:56px;border-radius:50%;background:rgba(255,253,248,.92);color:var(--pine);display:grid;place-items:center;font-size:20px;padding-left:4px}
+ .vid .lock{position:absolute;top:10px;right:10px;background:rgba(13,42,33,.85);color:var(--brass-2);font-size:11px;font-weight:600;padding:5px 10px;border-radius:100px}
+ .vid .vb{padding:15px 17px}.vid h3{font-family:'Outfit';font-size:15px;font-weight:600;margin:0 0 3px}.vid .m{font-size:13px;color:var(--muted)}
+ /* protected viewer modal */
+ .modal{position:fixed;inset:0;background:rgba(13,26,21,.72);backdrop-filter:blur(4px);z-index:80;display:none;place-items:center;padding:24px}
+ .modal.on{display:grid}
+ .sheet{background:var(--white);border-radius:18px;max-width:760px;width:100%;max-height:88vh;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+ .sheet .sh-top{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;border-bottom:1px solid var(--line)}
+ .sheet .sh-top .t{font-family:'Fraunces';font-size:19px;color:var(--pine)}
+ .sheet .x{cursor:pointer;font-size:22px;color:var(--muted);background:none;border:0}
+ .paper{position:relative;overflow:auto;padding:38px 46px;background:#fbfaf6;flex:1;user-select:none}
+ .paper h2{font-family:'Fraunces';color:var(--pine);font-size:26px}
+ .paper p{color:#3a3d36;font-size:15px}
+ .wm{position:absolute;inset:0;pointer-events:none;display:flex;flex-wrap:wrap;gap:60px;justify-content:center;align-content:center;opacity:.09;transform:rotate(-24deg)}
+ .wm span{font-family:'Fraunces';font-size:26px;color:var(--pine);white-space:nowrap}
+ .sh-foot{padding:12px 22px;background:#fdeccb;color:#8a5a12;font-size:13px;font-weight:600;text-align:center}
+ @media(max-width:800px){.shell{grid-template-columns:1fr}.side{position:static;height:auto}.side .foot{position:static;margin-top:20px}}
+</style></head><body oncontextmenu="return false">
+<div class="shell">
+  <aside class="side">
+    <a class="brand" href="../index.html"><span class="mark">GF</span> Global Force</a>
+    <nav>
+      <a class="on" data-v="home"><span class="ico">◉</span> Dashboard</a>
+      <a data-v="forms"><span class="ico">▤</span> Forms</a>
+      <a data-v="training"><span class="ico">◈</span> Education</a>
+      <a data-v="videos"><span class="ico">▶</span> Video Library</a>
+    </nav>
+    <div class="foot"><a href="index.html" style="display:block;text-align:center;color:var(--cream)">Sign out</a></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div></div>
+      <div class="who"><div class="av"><img src="../assets/img/a1.jpg" alt=""></div>
+        <div><div class="nm">Priya Sharma</div><div class="rl">Managing Broker</div></div></div>
+    </div>
+
+    <!-- HOME -->
+    <section class="view on" id="home">
+      <h1 class="page">Welcome back, Priya.</h1>
+      <p class="lead">Everything you need to serve clients and grow your business.</p>
+      <div class="stat">
+        <div class="c"><div class="n">18</div><div class="l">Forms available</div></div>
+        <div class="c"><div class="n">24</div><div class="l">Training documents</div></div>
+        <div class="c"><div class="n">31</div><div class="l">Videos in library</div></div>
+      </div>
+      <div class="lib">
+        <div class="doc"><div class="ic" style="background:#1c6b46">▤</div><h3>Listing Agreement 2026</h3><div class="meta">Fillable form · updated Jul 2026</div>
+          <div class="act"><span class="pill dl">Downloadable</span><button class="mini dark" onclick="go('forms')">Open</button></div></div>
+        <div class="doc"><div class="ic" style="background:#b98a3e">◈</div><h3>New Agent Onboarding</h3><div class="meta">Training guide · read-only</div>
+          <div class="act"><span class="pill view">View only</span><button class="mini out" onclick="viewDoc('New Agent Onboarding')">View</button></div></div>
+        <div class="doc"><div class="ic" style="background:#12362b">▶</div><h3>Winning Listing Presentations</h3><div class="meta">Video · 14 min</div>
+          <div class="act"><span class="pill view">Stream only</span><button class="mini out" onclick="go('videos')">Watch</button></div></div>
+      </div>
+    </section>
+
+    <!-- FORMS (downloadable) -->
+    <section class="view" id="forms">
+      <h1 class="page">Forms</h1>
+      <p class="lead">Contracts and documents you can download, fill and share with clients.</p>
+      <div class="lib" id="formList"></div>
+    </section>
+
+    <!-- TRAINING (view only) -->
+    <section class="view" id="training">
+      <h1 class="page">Education &amp; Training</h1>
+      <p class="lead">Read-only materials. These open in a protected viewer — no download, no copy, watermarked to you.</p>
+      <div class="lib" id="trainList"></div>
+    </section>
+
+    <!-- VIDEOS (stream only) -->
+    <section class="view" id="videos">
+      <h1 class="page">Video Library</h1>
+      <p class="lead">On-demand training that streams to you but can't be downloaded or shared.</p>
+      <div class="lib" id="vidList"></div>
+    </section>
+  </main>
+</div>
+
+<!-- protected document viewer -->
+<div class="modal" id="viewer">
+  <div class="sheet">
+    <div class="sh-top"><div class="t" id="vTitle">Document</div><button class="x" onclick="closeDoc()">×</button></div>
+    <div class="paper" id="vPaper">
+      <div class="wm" id="wm"></div>
+      <h2 id="vH">Onboarding Guide</h2>
+      <p>This is a protected, read-only training document inside the agent portal. It opens in the browser so agents can read it, but it cannot be downloaded, printed, copied, or forwarded — and it carries a live watermark with the agent's name across every page.</p>
+      <p>1. Welcome to Global Force Realty. This guide walks you through your first 30 days: setting up your profile, understanding our commission structure, and using the tools available in this portal.</p>
+      <p>2. Compliance essentials. Every listing and transaction must follow provincial regulations. Use the Forms section for the current, approved versions of all agreements.</p>
+      <p>3. Growing your book. Access the video library for training on prospecting, listing presentations, and negotiation. New material is added monthly.</p>
+      <p style="color:var(--muted)">— Global Force Realty · Confidential · For agent use only —</p>
+    </div>
+    <div class="sh-foot">🔒 Protected view — downloading, printing and copying are disabled · watermarked to Priya Sharma</div>
+  </div>
+</div>
+
+<script>
+ var forms=[['Listing Agreement 2026','Fillable · PDF'],['Buyer Representation Agreement','Fillable · PDF'],
+   ['Offer to Purchase','Editable · DOCX'],['Disclosure Statement','Fillable · PDF'],
+   ['Commission Split Sheet','Editable · XLSX'],['Client Intake Form','Fillable · PDF']];
+ var train=[['New Agent Onboarding','Guide · 12 pages'],['Compliance Handbook 2026','Policy · 40 pages'],
+   ['Listing Playbook','Guide · 18 pages'],['Negotiation Scripts','Reference · 8 pages'],
+   ['Brand Style Guide','Reference · 22 pages'],['Social Media Kit','Guide · 15 pages']];
+ var vids=[['Winning Listing Presentations','14 min'],['Prospecting That Works','21 min'],
+   ['Handling Objections','17 min'],['Pricing Strategy Masterclass','28 min'],
+   ['Open House Excellence','11 min'],['Closing With Confidence','19 min']];
+
+ function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstElementChild;}
+ forms.forEach(function(f){document.getElementById('formList').appendChild(el(
+   '<div class="doc"><div class="ic" style="background:#1c6b46">▤</div><h3>'+f[0]+'</h3><div class="meta">'+f[1]+'</div>'+
+   '<div class="act"><span class="pill dl">Downloadable</span><button class="mini dark" onclick="dl(\''+f[0]+'\')">Download</button></div></div>'));});
+ train.forEach(function(t){document.getElementById('trainList').appendChild(el(
+   '<div class="doc"><div class="ic" style="background:#b98a3e">◈</div><h3>'+t[0]+'</h3><div class="meta">'+t[1]+'</div>'+
+   '<div class="act"><span class="pill view">View only</span><button class="mini out" onclick="viewDoc(\''+t[0]+'\')">View</button></div></div>'));});
+ vids.forEach(function(v,i){document.getElementById('vidList').appendChild(el(
+   '<div class="vid"><div class="thumb" onclick="playVid(\''+v[0]+'\')"><img src="../assets/img/v'+i+'.jpg"><div class="lock">🔒 No download</div><div class="play"><span>▶</span></div></div>'+
+   '<div class="vb"><h3>'+v[0]+'</h3><div class="m">'+v[1]+' · streaming only</div></div></div>'));});
+
+ function go(v){document.querySelectorAll('.side a[data-v]').forEach(function(a){a.classList.toggle('on',a.dataset.v===v);});
+   document.querySelectorAll('.view').forEach(function(s){s.classList.toggle('on',s.id===v);});window.scrollTo(0,0);}
+ document.querySelectorAll('.side a[data-v]').forEach(function(a){a.onclick=function(){go(a.dataset.v);};});
+
+ var wm=document.getElementById('wm');for(var i=0;i<24;i++){var s=document.createElement('span');s.textContent='Priya Sharma · Global Force';wm.appendChild(s);}
+ function viewDoc(t){document.getElementById('vTitle').textContent=t;document.getElementById('vH').textContent=t;document.getElementById('viewer').classList.add('on');}
+ function closeDoc(){document.getElementById('viewer').classList.remove('on');}
+ function dl(t){alert('⬇ Downloading "'+t+'"\\n\\nForms are allowed to download and edit. (Demo)');}
+ function playVid(t){alert('▶ Streaming "'+t+'"\\n\\nVideos play in a protected player — download and right-click save are disabled. (Demo)');}
+ // deter copy/save on protected content
+ document.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&['s','p','c'].includes(e.key.toLowerCase())&&document.getElementById('viewer').classList.contains('on')){e.preventDefault();}});
+</script>
+</body></html>
